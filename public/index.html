@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de muestra</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        async function fetchProductos() {
+            try {
+                const response = await fetch('../api/index.php?endpoint=productos');
+                const data = await response.json();
+
+                const productosContainer = document.getElementById('productos');
+                productosContainer.innerHTML = '';
+
+                data.forEach(producto => {
+                    const productoDiv = document.createElement('div');
+                    productoDiv.innerHTML = `<h3>${producto.nombre}</h3><p>ID: ${producto.id}</p>`;
+                    productosContainer.appendChild(productoDiv);
+                });
+            } catch (error) {
+                console.error('Error al obtener productos:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchProductos);
+    </script>
+</head>
+<body>
+<h1>Bienvenido al backend</h1>
+<p>Esta es una página de muestra para probar la configuración del backend.</p>
+<div id="productos">
+    <p>Cargando productos...</p>
+</div>
+</body>
+</html>
